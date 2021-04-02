@@ -1,9 +1,23 @@
-.cardContainer {
+.todoPageContainer {
   display: flex;
 
-  .card {
-    width: 150px;
-    height: 200px;
+  .column {
+    height: 50vh;
     border: 1px solid black;
+  }
+  .userInfoContainer {
+    border: 1px solid black;
+  }
+  .cardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    align-self: flex-start;
+    padding: 25px;
+    .card {
+      width: 150px;
+      height: 200px;
+      margin: 15px;
+      border: 1px solid black;
+    }
   }
 }
