@@ -8,7 +8,9 @@ const Todo = () => {
     ["d", 2, 4, 1, 111],
     [5],
   ]);
-  const createHandler = () => {};
+  const createHandler = () => {
+    setTodos([...setTodos, todos]);
+  };
   return (
     <div>
       <div className="userInfoContainer"></div>
