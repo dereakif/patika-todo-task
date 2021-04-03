@@ -1,27 +1,53 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Todo.scss";
 const Todo = () => {
   let fName = localStorage.getItem("firstName");
   let lName = localStorage.getItem("lastName");
-  const [todoCards, setTodoCards] = useState([
-    [1, 2],
-    [3, 4],
-    [5, 6],
-  ]);
-  const [todoList, setTodoList] = useState([]);
-  const [todoItem, setTodoItem] = useState("");
+  const [todoCards, setTodoCards] = useState([]);
+  //const [todoList, setTodoList] = useState([]);
+  const [todoItem, setTodoItem] = useState([]);
+  useEffect(() => {
+    // console.log(todoCards, "cards", "useefect");
+    console.log(todoItem, "todoItem useeffetc");
+  }, [todoItem]);
   const createHandler = () => {
-    setTodoCards([...todoCards, []]);
+    let cards = [...todoCards];
+    let card = [];
+    setTodoCards([...cards, card]);
   };
-  const onChangeHandler = (e) => {
-    setTodoItem(e.target.value);
-    console.log(e.target.value);
+  const onChangeHandler = (e, index) => {
+    let itemList = [...todoItem];
+    let item = todoItem[index];
+    item = e.target.value;
+    itemList[index] = item;
+    setTodoItem(itemList);
+    console.log(e.target.value, todoItem);
   };
   const addTodo = (index) => {
-    setTodoList([...todoList, todoItem]);
-    //todoCards[index] = todoItem;
+    let cards = [...todoCards];
+    let todos = cards[index];
+    let todo = todoItem[index];
+    if (todo === undefined || todo === "") {
+      alert("invalid");
+    } else {
+      todos = [...todos, todo];
+      cards[index] = todos;
+      setTodoCards(cards);
+      let newTodoItems = [...todoItem];
 
-    setTodoItem("");
+      console.log(newTodoItems, "newTodoItems", todoItem, "todoItem");
+      newTodoItems[index] = "";
+      setTodoItem(newTodoItems);
+      console.log(newTodoItems, "newTodoItem", todoItem, "todoItem");
+    }
+  };
+  const deleteHandler = (cardIndex, listItemIndex) => {
+    let cards = [...todoCards];
+    let card = cards[cardIndex];
+    card.splice(listItemIndex, 1);
+    cards[cardIndex] = card;
+    //card.length === 0 && cards.splice(cardIndex, 1);
+    setTodoCards(cards);
   };
   return (
     <div className="todoPageContainer">
@@ -54,22 +80,22 @@ const Todo = () => {
               </ul> */}
       <div className="cardContainer">
         {todoCards.length > 0 &&
-          todoCards.map((todo, i) => (
-            <div key={i} className="card">
+          todoCards.map((todoCard, cardIndex) => (
+            <div key={cardIndex} className="card">
               <div className="cardContent">
                 <div className="cardTitle">
                   <input type="text"></input>
                 </div>
                 <input
                   type="text"
-                  value={todoItem}
-                  onChange={onChangeHandler}
+                  value={todoItem[cardIndex]}
+                  onChange={(e) => onChangeHandler(e, cardIndex)}
                 ></input>
-                <button onClick={() => addTodo(i)}>add</button>
-                {todo}
-                {todoList.length > 0 &&
-                  todoList.map((listItem, index) => (
-                    <div key={index}>
+                <button onClick={() => addTodo(cardIndex)}>add</button>
+                {/*  {console.log(todoCard, "goruyormu")} */}
+                {todoCard.length > 0 &&
+                  todoCard.map((listItem, listItemIndex) => (
+                    <div key={listItemIndex}>
                       <li
                         style={{
                           display: "flex",
@@ -77,7 +103,13 @@ const Todo = () => {
                       >
                         <input type="checkbox" />
                         <p>{listItem}</p>
-                        <button></button>
+                        <button
+                          onClick={() =>
+                            deleteHandler(cardIndex, listItemIndex)
+                          }
+                        >
+                          delete
+                        </button>
                       </li>
                     </div>
                   ))}
