@@ -49,6 +49,11 @@ const Todo = () => {
     //card.length === 0 && cards.splice(cardIndex, 1);
     setTodoCards(cards);
   };
+  const closeHandler = (cardIndex) => {
+    let cards = [...todoCards];
+    cards.splice(cardIndex, 1);
+    setTodoCards(cards);
+  };
   return (
     <div className="todoPageContainer">
       <div className="column">
@@ -65,24 +70,27 @@ const Todo = () => {
           </p>
         </div>
       </div>
-      {/* 
-      <ul>
-                {todo.length > 0 &&
-                  todo.map((listItem, index) => (
-                    <div key={index} className="cardContent">
-                      <div className="cardTitle">
-                        <input></input>
-                      </div>
-                      <input></input>
-                      <li>{listItem}</li>
-                    </div>
-                  ))}
-              </ul> */}
+
       <div className="cardContainer">
         {todoCards.length > 0 &&
           todoCards.map((todoCard, cardIndex) => (
             <div key={cardIndex} className="card">
               <div className="cardContent">
+                <div
+                  className="closeBtnCotainer"
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                  }}
+                >
+                  <div
+                    className="closeBtn"
+                    style={{ cursor: "pointer", width: "max-content" }}
+                    onClick={() => closeHandler(cardIndex)}
+                  >
+                    &#10006;
+                  </div>
+                </div>
                 <div className="cardTitle">
                   <input type="text"></input>
                 </div>
@@ -92,27 +100,30 @@ const Todo = () => {
                   onChange={(e) => onChangeHandler(e, cardIndex)}
                 ></input>
                 <button onClick={() => addTodo(cardIndex)}>add</button>
-                {/*  {console.log(todoCard, "goruyormu")} */}
-                {todoCard.length > 0 &&
-                  todoCard.map((listItem, listItemIndex) => (
-                    <div key={listItemIndex}>
-                      <li
-                        style={{
-                          display: "flex",
-                        }}
-                      >
-                        <input type="checkbox" />
-                        <p>{listItem}</p>
-                        <button
-                          onClick={() =>
-                            deleteHandler(cardIndex, listItemIndex)
-                          }
+                <div style={{ overflowY: "auto", height: "200px" }}>
+                  {todoCard.length > 0 &&
+                    todoCard.map((listItem, listItemIndex) => (
+                      <div key={listItemIndex}>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                          }}
                         >
-                          delete
-                        </button>
-                      </li>
-                    </div>
-                  ))}
+                          <input type="checkbox" />
+                          <p>{listItem}</p>
+                          <button
+                            onClick={() =>
+                              deleteHandler(cardIndex, listItemIndex)
+                            }
+                            style={{ height: "max-content" }}
+                          >
+                            &times;
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                </div>
               </div>
               <div className="cardBody"></div>
             </div>
