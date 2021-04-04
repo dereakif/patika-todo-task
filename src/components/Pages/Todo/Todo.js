@@ -101,7 +101,6 @@ const Todo = () => {
     let newSelectedCategoryList = selectedCategoryList.filter(
       (item) => item !== selectedCategory
     );
-    console.log(categories);
     !selectedCategoryList.includes(selectedCategory)
       ? setSelectedCategoryList([...selectedCategoryList, selectedCategory])
       : setSelectedCategoryList(newSelectedCategoryList);
@@ -120,9 +119,10 @@ const Todo = () => {
               border: "1px solid black",
             }}
           ></div>
-          <p>
-            {fName} {lName}
-          </p>
+          <div className="nameContainer">
+            <p>{fName}</p>
+            <p> {lName}</p>
+          </div>
         </div>
         <div className="categorySection">
           <h2>Categories</h2>
