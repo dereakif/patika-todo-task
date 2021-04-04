@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 
 import LoginImg from "../../../assets/pixel.png";
 import "./Login.scss";
+import { TextField } from "@material-ui/core";
 const Login = () => {
   let history = useHistory();
   const firstNameHandler = (e) => {
@@ -23,15 +24,32 @@ const Login = () => {
           <div className="header"></div>
           <div className="inputTitle"></div>
           <div className="input">
-            <input placeholder="First Name" onChange={firstNameHandler}></input>
+            <TextField
+              onChange={firstNameHandler}
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              label="First Name"
+              name="firtName"
+              autoComplete="first name"
+              autoFocus
+            />
           </div>
           <div className="inputTitle"></div>
           <div className="input">
-            <input
-              placeholder="Last Name"
+            <TextField
               onChange={lastNameHandler}
               onKeyDown={enterHandler}
-            ></input>
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              label="Last Name"
+              name="firtName"
+              autoComplete="first name"
+              autoFocus
+            />
           </div>
 
           <Button variant="contained" color="primary">
