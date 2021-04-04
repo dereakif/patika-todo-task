@@ -36,10 +36,8 @@ const Todo = () => {
     setTodoItem(itemList);
   };
   const addTodo = (cardId) => {
-    console.log(selectedCategoryList);
     let cards = [...todoCards];
     let card = cards[cardId];
-    console.log(card);
     let todo = todoItem[cardId];
     if (todo === undefined || todo === "") {
       alert("invalid");
@@ -56,21 +54,21 @@ const Todo = () => {
       setTodoItem(newTodoItems);
     }
   };
-  const deleteHandler = (cardIndex, todoIndex) => {
+  const deleteHandler = (cardIndex, cardId) => {
     let cards = [...todoCards];
-    let card = cards[cardIndex];
+    let card = cards[cardId];
     let cardTodos = card.todos;
-    cardTodos.splice(todoIndex, 1);
+    cardTodos.splice(cardIndex, 1);
     card.todos = cardTodos;
-    cards[cardIndex] = card;
+    cards[cardId] = card;
     setTodoCards(cards);
   };
-  const closeHandler = (cardIndex) => {
+  const closeHandler = (cardId) => {
     let cards = [...todoCards];
-    cards.splice(cardIndex, 1);
+    cards.splice(cardId, 1);
     setTodoCards(cards);
     let newTodoItems = [...todoItem];
-    newTodoItems[cardIndex] = "";
+    newTodoItems[cardId] = "";
     setTodoItem(newTodoItems);
     setCardId(cards.length);
   };
@@ -91,7 +89,7 @@ const Todo = () => {
   };
   const addCategory = () => {
     if (category === "" || category === undefined) {
-      alert("please add a category");
+      alert("invalid category");
     } else {
       let newCategories = [...categories, category];
       setCategories(newCategories);
@@ -168,7 +166,7 @@ const Todo = () => {
                     <div
                       className="closeBtn"
                       style={{ cursor: "pointer", width: "max-content" }}
-                      onClick={() => closeHandler(cardIndex)}
+                      onClick={() => closeHandler(todoCard.id)}
                     >
                       &#10006;
                     </div>
@@ -202,7 +200,7 @@ const Todo = () => {
                           {item.todo}
                         </p>
                         <button
-                          onClick={() => deleteHandler(cardIndex, todoIndex)}
+                          onClick={() => deleteHandler(cardIndex, todoCard.id)}
                           style={{ height: "max-content" }}
                         >
                           &times;
