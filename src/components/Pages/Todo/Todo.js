@@ -24,9 +24,7 @@ const Todo = () => {
   };
   const addTodo = (index) => {
     let cards = [...todoCards];
-    let card;
-    card = cards[index];
-
+    let card = cards[index];
     let todo = todoItem[index];
     if (todo === undefined || todo === "") {
       alert("invalid");
@@ -43,11 +41,11 @@ const Todo = () => {
       setTodoItem(newTodoItems);
     }
   };
-  const deleteHandler = (cardIndex, listItemIndex) => {
+  const deleteHandler = (cardIndex, todoIndex) => {
     let cards = [...todoCards];
     let card = cards[cardIndex];
     let cardTodos = card.todos;
-    cardTodos.splice(listItemIndex, 1);
+    cardTodos.splice(todoIndex, 1);
     card.todos = cardTodos;
     cards[cardIndex] = card;
     setTodoCards(cards);
@@ -57,7 +55,18 @@ const Todo = () => {
     cards.splice(cardIndex, 1);
     setTodoCards(cards);
   };
-  const checkBoxHandler = () => {};
+  const checkBoxHandler = (cardIndex, todoIndex) => {
+    let cards = [...todoCards];
+    let card = cards[cardIndex];
+    let cardTodos = card.todos;
+    let todo = cardTodos[todoIndex];
+    let isTodoChecked = !todo.isChecked;
+    todo.isChecked = isTodoChecked;
+    cardTodos[todoIndex] = todo;
+    card.todos = cardTodos;
+    cards[cardIndex] = card;
+    setTodoCards(cards);
+  };
   return (
     <div className="todoPageContainer">
       <div className="column">
@@ -114,7 +123,15 @@ const Todo = () => {
                         type="checkbox"
                         onClick={() => checkBoxHandler(cardIndex, todoIndex)}
                       />
-                      <p>{item.todo}</p>
+                      <p
+                        style={{
+                          textDecoration: item.isChecked
+                            ? "line-through"
+                            : "none",
+                        }}
+                      >
+                        {item.todo}
+                      </p>
                       <button
                         onClick={() => deleteHandler(cardIndex, todoIndex)}
                         style={{ height: "max-content" }}
