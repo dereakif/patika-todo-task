@@ -58,7 +58,10 @@ const Todo = () => {
     let cards = [...todoCards];
     let card = cards[cardId];
     let cardTodos = card.todos;
+    console.log(cardIndex, "cardIndex");
+    console.log(cardTodos, "cardTodos");
     cardTodos.splice(cardIndex, 1);
+    console.log(cardTodos, "cardTodos");
     card.todos = cardTodos;
     cards[cardId] = card;
     setTodoCards(cards);
@@ -160,9 +163,12 @@ const Todo = () => {
                     className="closeBtnCotainer"
                     style={{
                       display: "flex",
-                      justifyContent: "flex-end",
+                      justifyContent: "space-between",
                     }}
                   >
+                    <div style={{ alignSelf: "center" }}>
+                      {todoCard.category}
+                    </div>
                     <div
                       className="closeBtn"
                       style={{ cursor: "pointer", width: "max-content" }}
@@ -190,7 +196,7 @@ const Todo = () => {
                           type="checkbox"
                           onClick={() => checkBoxHandler(cardIndex, todoIndex)}
                         />
-                        <p
+                        <div
                           style={{
                             textDecoration: item.isChecked
                               ? "line-through"
@@ -198,7 +204,7 @@ const Todo = () => {
                           }}
                         >
                           {item.todo}
-                        </p>
+                        </div>
                         <button
                           onClick={() => deleteHandler(cardIndex, todoCard.id)}
                           style={{ height: "max-content" }}
