@@ -41,22 +41,15 @@ const Todo = () => {
       let newTodoItems = [...todoItem];
       newTodoItems[index] = "";
       setTodoItem(newTodoItems);
-      /*  console.log(card, "card in addtodo", card["todos"]);
-      card.todos = [...card.todos, { todos: todo, isChecked: false }];
-      cards[index] = card.todos;
-      setTodoCards(cards);
-      console.log(cards, "cards");
-      let newTodoItems = [...todoItem];
-      newTodoItems[index] = "";
-      setTodoItem(newTodoItems); */
     }
   };
   const deleteHandler = (cardIndex, listItemIndex) => {
     let cards = [...todoCards];
     let card = cards[cardIndex];
-    card.splice(listItemIndex, 1);
+    let cardTodos = card.todos;
+    cardTodos.splice(listItemIndex, 1);
+    card.todos = cardTodos;
     cards[cardIndex] = card;
-    //card.length === 0 && cards.splice(cardIndex, 1);
     setTodoCards(cards);
   };
   const closeHandler = (cardIndex) => {
@@ -130,40 +123,6 @@ const Todo = () => {
                       </button>
                     </div>
                   ))}
-                  {console.log(todoCard.todos, "todocard mapto") &&
-                    todoCard.todos.map((items) =>
-                      console.log(items, "itemsssss")
-                    )}
-                  {/* {console.log(todoCard.todos, "todocard mapto") &&
-                    todoCard.todos.length > 0 &&
-                    todoCard.todos.map((todo, listItemIndex) => (
-                      <div key={listItemIndex}>
-                        {console.log(todo, "listItem")}
-                        <h1>bullshit</h1>
-                         <div
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                          }}
-                        >
-                          <input
-                            type="checkbox"
-                            onClick={() =>
-                              checkBoxHandler(cardIndex, listItemIndex)
-                            }
-                          />
-                          <p>{todo}</p>
-                          <button
-                            onClick={() =>
-                              deleteHandler(cardIndex, listItemIndex)
-                            }
-                            style={{ height: "max-content" }}
-                          >
-                            &times;
-                          </button>
-                        </div>
-                      </div>
-                    ))} */}
                 </div>
               </div>
               <div className="cardBody"></div>
