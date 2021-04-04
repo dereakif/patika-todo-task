@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 //import { withRouter } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import Button from "@material-ui/core/Button";
 
 import LoginImg from "../../../assets/pixel.png";
 import "./Login.scss";
@@ -32,9 +33,16 @@ const Login = () => {
               onKeyDown={enterHandler}
             ></input>
           </div>
-          <Link to="/todo" className="loginButton">
-            Login
-          </Link>
+
+          <Button variant="contained" color="primary">
+            <Link
+              to="/todo"
+              className="loginButton"
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              Login
+            </Link>
+          </Button>
         </div>
       </div>
       <img className="cardImg" alt="login-img" src={LoginImg}></img>
