@@ -4,15 +4,15 @@ const Todo = () => {
   let fName = localStorage.getItem("firstName");
   let lName = localStorage.getItem("lastName");
   const [todoCards, setTodoCards] = useState([]);
-  //const [todoList, setTodoList] = useState([]);
   const [todoItem, setTodoItem] = useState([]);
+  //const [todoList, setTodoList] = useState([]);
   useEffect(() => {
-    // console.log(todoCards, "cards", "useefect");
+    console.log(todoCards, "cards", "useefect");
     console.log(todoItem, "todoItem useeffetc");
-  }, [todoItem]);
+  }, [todoItem, todoCards]);
   const createHandler = () => {
     let cards = [...todoCards];
-    let card = [];
+    let card = { todos: [] };
     setTodoCards([...cards, card]);
   };
   const onChangeHandler = (e, index) => {
@@ -21,24 +21,34 @@ const Todo = () => {
     item = e.target.value;
     itemList[index] = item;
     setTodoItem(itemList);
-    console.log(e.target.value, todoItem);
   };
   const addTodo = (index) => {
     let cards = [...todoCards];
-    let todos = cards[index];
+    let card;
+    card = cards[index];
+
     let todo = todoItem[index];
     if (todo === undefined || todo === "") {
       alert("invalid");
     } else {
-      todos = [...todos, todo];
-      cards[index] = todos;
+      let cardTodos = card.todos;
+      cardTodos = [...cardTodos, { todo: todo, isChecked: false }];
+      console.log(cardTodos, "cardtodos ın addtodo");
+      card.todos = cardTodos;
+      cards[index] = card;
       setTodoCards(cards);
+      console.log(cards, "cards");
       let newTodoItems = [...todoItem];
-
-      console.log(newTodoItems, "newTodoItems", todoItem, "todoItem");
       newTodoItems[index] = "";
       setTodoItem(newTodoItems);
-      console.log(newTodoItems, "newTodoItem", todoItem, "todoItem");
+      /*  console.log(card, "card in addtodo", card["todos"]);
+      card.todos = [...card.todos, { todos: todo, isChecked: false }];
+      cards[index] = card.todos;
+      setTodoCards(cards);
+      console.log(cards, "cards");
+      let newTodoItems = [...todoItem];
+      newTodoItems[index] = "";
+      setTodoItem(newTodoItems); */
     }
   };
   const deleteHandler = (cardIndex, listItemIndex) => {
@@ -54,6 +64,7 @@ const Todo = () => {
     cards.splice(cardIndex, 1);
     setTodoCards(cards);
   };
+  const checkBoxHandler = () => {};
   return (
     <div className="todoPageContainer">
       <div className="column">
@@ -101,17 +112,47 @@ const Todo = () => {
                 ></input>
                 <button onClick={() => addTodo(cardIndex)}>add</button>
                 <div style={{ overflowY: "auto", height: "200px" }}>
-                  {todoCard.length > 0 &&
-                    todoCard.map((listItem, listItemIndex) => (
+                  {todoCard.todos.map((item, todoIndex) => (
+                    <div
+                      key={todoIndex}
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      <input
+                        type="checkbox"
+                        onClick={() => checkBoxHandler(cardIndex, todoIndex)}
+                      />
+                      <p>{item.todo}</p>
+                      <button
+                        onClick={() => deleteHandler(cardIndex, todoIndex)}
+                        style={{ height: "max-content" }}
+                      >
+                        &times;
+                      </button>
+                    </div>
+                  ))}
+                  {console.log(todoCard.todos, "todocard mapto") &&
+                    todoCard.todos.map((items) =>
+                      console.log(items, "itemsssss")
+                    )}
+                  {/* {console.log(todoCard.todos, "todocard mapto") &&
+                    todoCard.todos.length > 0 &&
+                    todoCard.todos.map((todo, listItemIndex) => (
                       <div key={listItemIndex}>
-                        <div
+                        {console.log(todo, "listItem")}
+                        <h1>bullshit</h1>
+                         <div
                           style={{
                             display: "flex",
                             alignItems: "center",
                           }}
                         >
-                          <input type="checkbox" />
-                          <p>{listItem}</p>
+                          <input
+                            type="checkbox"
+                            onClick={() =>
+                              checkBoxHandler(cardIndex, listItemIndex)
+                            }
+                          />
+                          <p>{todo}</p>
                           <button
                             onClick={() =>
                               deleteHandler(cardIndex, listItemIndex)
@@ -122,7 +163,7 @@ const Todo = () => {
                           </button>
                         </div>
                       </div>
-                    ))}
+                    ))} */}
                 </div>
               </div>
               <div className="cardBody"></div>

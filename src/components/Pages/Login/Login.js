@@ -37,7 +37,7 @@ const Login = () => {
           </Link>
         </div>
       </div>
-      <img className="cardImg" src={LoginImg}></img>
+      <img className="cardImg" alt="login-img" src={LoginImg}></img>
     </div>
   );
 };
