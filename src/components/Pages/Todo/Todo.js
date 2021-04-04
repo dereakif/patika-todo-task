@@ -11,7 +11,7 @@ const Todo = () => {
   const [selectedCategoryList, setSelectedCategoryList] = useState([]);
 
   useEffect(() => {
-    console.log(todoCards, "cards", "useefect");
+    // console.log(todoCards, "cards", "useefect");
     console.log(todoItem, "todoItem useeffetc");
     console.log(todoCards, "testingggg");
     console.log(cardId, "cardId");
@@ -29,18 +29,18 @@ const Todo = () => {
       setCardId([...cards, card].length);
     }
   };
-  const onChangeHandler = (e, index) => {
+  const onChangeHandler = (e, cardId) => {
     let itemList = [...todoItem];
-    let item = todoItem[index];
-    item = e.target.value;
-    itemList[index] = item;
+    let text = e.target.value;
+    itemList[cardId] = text;
     setTodoItem(itemList);
   };
-  const addTodo = (index) => {
+  const addTodo = (cardId) => {
     console.log(selectedCategoryList);
     let cards = [...todoCards];
-    let card = cards[index];
-    let todo = todoItem[index];
+    let card = cards[cardId];
+    console.log(card);
+    let todo = todoItem[cardId];
     if (todo === undefined || todo === "") {
       alert("invalid");
     } else {
@@ -48,11 +48,11 @@ const Todo = () => {
       cardTodos = [...cardTodos, { todo: todo, isChecked: false }];
       console.log(cardTodos, "cardtodos ın addtodo");
       card.todos = cardTodos;
-      cards[index] = card;
+      cards[cardId] = card;
       setTodoCards(cards);
       console.log(cards, "cards");
       let newTodoItems = [...todoItem];
-      newTodoItems[index] = "";
+      newTodoItems[cardId] = "";
       setTodoItem(newTodoItems);
     }
   };
@@ -178,10 +178,10 @@ const Todo = () => {
                   </div>
                   <input
                     type="text"
-                    value={todoItem[cardIndex]}
-                    onChange={(e) => onChangeHandler(e, cardIndex)}
+                    value={todoItem[todoCard.id]}
+                    onChange={(e) => onChangeHandler(e, todoCard.id)}
                   ></input>
-                  <button onClick={() => addTodo(cardIndex)}>add</button>
+                  <button onClick={() => addTodo(todoCard.id)}>add</button>
                   <div style={{ overflowY: "auto", height: "200px" }}>
                     {todoCard.todos.map((item, todoIndex) => (
                       <div
