@@ -2,11 +2,28 @@
   display: flex;
 
   .column {
-    height: 50vh;
+    height: max-content;
+    padding: 1rem;
     border: 1px solid black;
   }
   .userInfoContainer {
     border: 1px solid black;
+  }
+  .categorySection {
+    border: 1px solid black;
+    padding: 1rem;
+    .categoryList {
+      display: flex;
+      flex-direction: column;
+      height: max-content;
+      .categoryContainer {
+        display: flex;
+        align-items: center;
+        .category {
+          text-align: left;
+        }
+      }
+    }
   }
   .cardContainer {
     display: flex;
