@@ -173,9 +173,29 @@ const Todo = () => {
               <div key={cardIndex} className="card">
                 <div
                   className={"overlay" + `${todoCard.id}`}
-                  style={{ height: "max-content", backgroundColor: "grey" }}
+                  style={{
+                    position: "absolute",
+                    height: "100%",
+                    width: "100%",
+                    backgroundColor: "grey",
+                    zIndex: "2",
+                    display: todoCard.isSaved ? "flex" : "none",
+                    justifyContent: "space-around",
+                    alignItems: "center",
+                  }}
                 >
-                  overlay
+                  <div
+                    className="editBtn"
+                    onClick={() => saveHandler(todoCard.id)}
+                  >
+                    Edit
+                  </div>
+                  <div
+                    className="deleteBtn"
+                    onClick={() => closeHandler(todoCard.id)}
+                  >
+                    Delete
+                  </div>
                 </div>
                 <div className="cardContent">
                   <div

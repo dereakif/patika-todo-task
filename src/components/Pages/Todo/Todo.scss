@@ -32,6 +32,7 @@
     display: flex;
     flex-wrap: wrap;
     padding: 25px;
+    position: relative;
     .card {
       display: flex;
       flex-direction: column;
@@ -40,6 +41,16 @@
       height: 300px;
       margin: 15px;
       border: 1px solid black;
+      .editBtn {
+        align-self: center;
+        border: 1px solid black;
+        cursor: pointer;
+      }
+      .deleteBtn {
+        align-self: center;
+        border: 1px solid black;
+        cursor: pointer;
+      }
       .saveBtn {
         border: 1px solid black;
         position: absolute;
