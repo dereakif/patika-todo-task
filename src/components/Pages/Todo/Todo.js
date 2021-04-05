@@ -31,7 +31,7 @@ const Todo = () => {
       };
       let cards = [...todoCards];
       setTodoCards([...cards, card]);
-      setCardId([...cards, card].length);
+      setCardId(cardId + 1);
     }
   };
   const onChangeHandler = (e, cardId) => {
@@ -42,8 +42,11 @@ const Todo = () => {
   };
   const addTodo = (cardId) => {
     let cards = [...todoCards];
-    let card = cards[cardId];
+    let cardIndex = cards.indexOf(cards.find((card) => card.id === cardId));
+    let card = cards[cardIndex];
+    console.warn(card);
     let todo = todoItem[cardId];
+    console.warn(todo);
     if (todo === undefined || todo === "") {
       alert("invalid");
     } else {
@@ -51,7 +54,7 @@ const Todo = () => {
       cardTodos = [...cardTodos, { todo: todo, isChecked: false }];
       console.log(cardTodos, "cardtodos ın addtodo");
       card.todos = cardTodos;
-      cards[cardId] = card;
+      cards[cardIndex] = card;
       setTodoCards(cards);
       console.log(cards, "cards");
       let newTodoItems = [...todoItem];
@@ -61,35 +64,40 @@ const Todo = () => {
   };
   const deleteHandler = (cardIndex, cardId) => {
     let cards = [...todoCards];
-    let card = cards[cardId];
+    let newCardIndex = cards.indexOf(cards.find((card) => card.id === cardId));
+    let card = cards[newCardIndex];
     let cardTodos = card.todos;
     console.log(cardIndex, "cardIndex");
     console.log(cardTodos, "cardTodos");
     cardTodos.splice(cardIndex, 1);
     console.log(cardTodos, "cardTodos");
     card.todos = cardTodos;
-    cards[cardId] = card;
+    cards[newCardIndex] = card;
     setTodoCards(cards);
   };
-  const closeHandler = (cardId) => {
+  const closeHandler = (id) => {
     let cards = [...todoCards];
-    cards.splice(cardId, 1);
+    let cardIndex = cards.indexOf(cards.find((card) => card.id === id));
+    cards.splice(cardIndex, 1);
     setTodoCards(cards);
     let newTodoItems = [...todoItem];
-    newTodoItems[cardId] = "";
+    newTodoItems[id] = "";
     setTodoItem(newTodoItems);
-    setCardId(cards.length);
+    setCardId(cardId + 1);
   };
   const checkBoxHandler = (cardIndex, todoIndex) => {
     let cards = [...todoCards];
-    let card = cards[cardIndex];
+    let newCardIndex = cards.indexOf(
+      cards.find((card) => card.id === cardIndex)
+    );
+    let card = cards[newCardIndex];
     let cardTodos = card.todos;
     let todo = cardTodos[todoIndex];
     let isTodoChecked = !todo.isChecked;
     todo.isChecked = isTodoChecked;
     cardTodos[todoIndex] = todo;
     card.todos = cardTodos;
-    cards[cardIndex] = card;
+    cards[newCardIndex] = card;
     setTodoCards(cards);
   };
   const categoryOnChangeHandler = (e) => {
@@ -118,10 +126,16 @@ const Todo = () => {
   };
   const saveHandler = (cardId) => {
     let cards = [...todoCards];
-    let card = cards[cardId];
+    console.warn(cards);
+    let cardIndex = cards.indexOf(cards.find((card) => card.id === cardId));
+    console.warn(cardIndex, "cardIndex");
+    let card = cards[cardIndex];
+    console.warn(card);
     let isCardSaved = !card.isSaved;
+    console.warn(isCardSaved);
     card.isSaved = isCardSaved;
-    cards[cardId] = card;
+    console.warn(card);
+    cards[cardIndex] = card;
     setTodoCards(cards);
   };
   return (
@@ -147,7 +161,7 @@ const Todo = () => {
           <div className="categoryList">
             {categories.length > 0 &&
               categories.map((category, index) => (
-                <div className="categoryContainer">
+                <div key={index} className="categoryContainer">
                   <input
                     type="checkbox"
                     onClick={() => categoryCheckBoxHandler(index)}
@@ -172,16 +186,19 @@ const Todo = () => {
             .map((todoCard, cardIndex) => (
               <div key={cardIndex} className="card">
                 <div
-                  className={"overlay" + `${todoCard.id}`}
+                  className="overlay"
                   style={{
                     position: "absolute",
                     height: "100%",
                     width: "100%",
-                    backgroundColor: "grey",
+                    backgroundColor: "rgba(0,0,0,.9)",
                     zIndex: "2",
                     display: todoCard.isSaved ? "flex" : "none",
                     justifyContent: "space-around",
                     alignItems: "center",
+                    "&:hover": {
+                      backgroundColor: "black",
+                    },
                   }}
                 >
                   <div
@@ -233,10 +250,7 @@ const Todo = () => {
                   <button onClick={() => addTodo(todoCard.id)}>add</button>
                   <div style={{ overflowY: "auto", height: "170px" }}>
                     {todoCard.todos.map((item, todoIndex) => (
-                      <div
-                        key={todoIndex}
-                        style={{ display: "flex", alignItems: "center" }}
-                      >
+                      <div className="todoContainer" key={todoIndex}>
                         <input
                           type="checkbox"
                           onClick={() =>
@@ -264,6 +278,7 @@ const Todo = () => {
 
                   <div
                     className="saveBtn"
+                    style={{ display: todoCard.isSaved ? "none" : "unset" }}
                     onClick={() => saveHandler(todoCard.id)}
                   >
                     SAVE
