@@ -23,7 +23,12 @@ const Todo = () => {
     if (selectedCategoryList.length === 0) {
       alert("first select a category");
     } else {
-      let card = { todos: [], category: selectedCategoryList, id: cardId };
+      let card = {
+        todos: [],
+        category: selectedCategoryList,
+        id: cardId,
+        isSaved: false,
+      };
       let cards = [...todoCards];
       setTodoCards([...cards, card]);
       setCardId([...cards, card].length);
@@ -111,6 +116,14 @@ const Todo = () => {
     /*  !selectedCategoryList.includes(selectedCategory) &&
       setSelectedCategoryList([...selectedCategoryList, selectedCategory]); */
   };
+  const saveHandler = (cardId) => {
+    let cards = [...todoCards];
+    let card = cards[cardId];
+    let isCardSaved = !card.isSaved;
+    card.isSaved = isCardSaved;
+    cards[cardId] = card;
+    setTodoCards(cards);
+  };
   return (
     <div className="todoPageContainer">
       <div className="column">
@@ -158,6 +171,12 @@ const Todo = () => {
             })
             .map((todoCard, cardIndex) => (
               <div key={cardIndex} className="card">
+                <div
+                  className={"overlay" + `${todoCard.id}`}
+                  style={{ height: "max-content", backgroundColor: "grey" }}
+                >
+                  overlay
+                </div>
                 <div className="cardContent">
                   <div
                     className="closeBtnCotainer"
@@ -167,11 +186,17 @@ const Todo = () => {
                     }}
                   >
                     <div style={{ alignSelf: "center" }}>
-                      {todoCard.category}
+                      {todoCard.category.map((item, i) => (
+                        <span key={i}>{item} </span>
+                      ))}
                     </div>
                     <div
                       className="closeBtn"
-                      style={{ cursor: "pointer", width: "max-content" }}
+                      style={{
+                        cursor: "pointer",
+                        width: "max-content",
+                        display: todoCard.isSaved ? "none" : "unset",
+                      }}
                       onClick={() => closeHandler(todoCard.id)}
                     >
                       &#10006;
@@ -186,7 +211,7 @@ const Todo = () => {
                     onChange={(e) => onChangeHandler(e, todoCard.id)}
                   ></input>
                   <button onClick={() => addTodo(todoCard.id)}>add</button>
-                  <div style={{ overflowY: "auto", height: "200px" }}>
+                  <div style={{ overflowY: "auto", height: "170px" }}>
                     {todoCard.todos.map((item, todoIndex) => (
                       <div
                         key={todoIndex}
@@ -194,7 +219,9 @@ const Todo = () => {
                       >
                         <input
                           type="checkbox"
-                          onClick={() => checkBoxHandler(cardIndex, todoIndex)}
+                          onClick={() =>
+                            checkBoxHandler(todoCard.id, todoIndex)
+                          }
                         />
                         <div
                           style={{
@@ -206,7 +233,7 @@ const Todo = () => {
                           {item.todo}
                         </div>
                         <button
-                          onClick={() => deleteHandler(cardIndex, todoCard.id)}
+                          onClick={() => deleteHandler(todoIndex, todoCard.id)}
                           style={{ height: "max-content" }}
                         >
                           &times;
@@ -214,8 +241,14 @@ const Todo = () => {
                       </div>
                     ))}
                   </div>
+
+                  <div
+                    className="saveBtn"
+                    onClick={() => saveHandler(todoCard.id)}
+                  >
+                    SAVE
+                  </div>
                 </div>
-                <div className="cardBody"></div>
               </div>
             ))}
         <div className="createCard card">

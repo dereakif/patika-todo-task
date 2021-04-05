@@ -31,13 +31,22 @@
   .cardContainer {
     display: flex;
     flex-wrap: wrap;
-    align-self: flex-start;
     padding: 25px;
     .card {
+      display: flex;
+      flex-direction: column;
+      position: relative;
       width: 200px;
       height: 300px;
       margin: 15px;
       border: 1px solid black;
+      .saveBtn {
+        border: 1px solid black;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        cursor: pointer;
+      }
     }
   }
 }
