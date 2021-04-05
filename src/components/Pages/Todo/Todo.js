@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./Todo.scss";
+
 const Todo = () => {
   let fName = localStorage.getItem("firstName");
   let lName = localStorage.getItem("lastName");
@@ -11,7 +12,6 @@ const Todo = () => {
   const [selectedCategoryList, setSelectedCategoryList] = useState([]);
 
   useEffect(() => {
-    // console.log(todoCards, "cards", "useefect");
     console.log(todoItem, "todoItem useeffetc");
     console.log(todoCards, "testingggg");
     console.log(cardId, "cardId");
@@ -19,9 +19,10 @@ const Todo = () => {
     //console.log(category, "category");
     //console.log(categories, "categories");
   }, [todoItem, todoCards, selectedCategoryList, cardId]);
+
   const createHandler = () => {
     if (selectedCategoryList.length === 0) {
-      alert("first select a category");
+      alert("First select a category.");
     } else {
       let card = {
         todos: [],
@@ -34,12 +35,14 @@ const Todo = () => {
       setCardId(cardId + 1);
     }
   };
+
   const onChangeHandler = (e, cardId) => {
     let itemList = [...todoItem];
     let text = e.target.value;
     itemList[cardId] = text;
     setTodoItem(itemList);
   };
+
   const addTodo = (cardId) => {
     let cards = [...todoCards];
     let cardIndex = cards.indexOf(cards.find((card) => card.id === cardId));
@@ -48,7 +51,7 @@ const Todo = () => {
     let todo = todoItem[cardId];
     console.warn(todo);
     if (todo === undefined || todo === "") {
-      alert("invalid");
+      alert("Invalid todo input.");
     } else {
       let cardTodos = card.todos;
       cardTodos = [...cardTodos, { todo: todo, isChecked: false }];
@@ -62,6 +65,7 @@ const Todo = () => {
       setTodoItem(newTodoItems);
     }
   };
+
   const deleteHandler = (cardIndex, cardId) => {
     let cards = [...todoCards];
     let newCardIndex = cards.indexOf(cards.find((card) => card.id === cardId));
@@ -75,6 +79,7 @@ const Todo = () => {
     cards[newCardIndex] = card;
     setTodoCards(cards);
   };
+
   const closeHandler = (id) => {
     let cards = [...todoCards];
     let cardIndex = cards.indexOf(cards.find((card) => card.id === id));
@@ -85,6 +90,7 @@ const Todo = () => {
     setTodoItem(newTodoItems);
     setCardId(cardId + 1);
   };
+
   const checkBoxHandler = (cardIndex, todoIndex) => {
     let cards = [...todoCards];
     let newCardIndex = cards.indexOf(
@@ -100,18 +106,20 @@ const Todo = () => {
     cards[newCardIndex] = card;
     setTodoCards(cards);
   };
+
   const categoryOnChangeHandler = (e) => {
     setCategory(e.target.value);
   };
   const addCategory = () => {
     if (category === "" || category === undefined) {
-      alert("invalid category");
+      alert("Invalid category input.");
     } else {
       let newCategories = [...categories, category];
       setCategories(newCategories);
       setCategory("");
     }
   };
+
   const categoryCheckBoxHandler = (index) => {
     let selectedCategory = categories[index];
     let newSelectedCategoryList = selectedCategoryList.filter(
@@ -120,10 +128,8 @@ const Todo = () => {
     !selectedCategoryList.includes(selectedCategory)
       ? setSelectedCategoryList([...selectedCategoryList, selectedCategory])
       : setSelectedCategoryList(newSelectedCategoryList);
-
-    /*  !selectedCategoryList.includes(selectedCategory) &&
-      setSelectedCategoryList([...selectedCategoryList, selectedCategory]); */
   };
+
   const saveHandler = (cardId) => {
     let cards = [...todoCards];
     console.warn(cards);
@@ -138,6 +144,7 @@ const Todo = () => {
     cards[cardIndex] = card;
     setTodoCards(cards);
   };
+
   return (
     <div className="todoPageContainer">
       <div className="column">
@@ -188,17 +195,7 @@ const Todo = () => {
                 <div
                   className="overlay"
                   style={{
-                    position: "absolute",
-                    height: "100%",
-                    width: "100%",
-                    backgroundColor: "rgba(0,0,0,.9)",
-                    zIndex: "2",
                     display: todoCard.isSaved ? "flex" : "none",
-                    justifyContent: "space-around",
-                    alignItems: "center",
-                    "&:hover": {
-                      backgroundColor: "black",
-                    },
                   }}
                 >
                   <div
