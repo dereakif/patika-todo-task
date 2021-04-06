@@ -168,6 +168,11 @@ const Todo = (props) => {
     cards[cardIndex] = card;
     setTodoCards(cards);
   };
+
+  const categoryEnterHandler = (e) => {
+    e.keyCode === 13 && addCategory();
+  };
+
   return (
     <div className="todoPageContainer">
       <div className="column">
@@ -183,6 +188,7 @@ const Todo = (props) => {
           <div className="categoryInputContainer">
             <TextField
               onChange={categoryOnChangeHandler}
+              onKeyDown={categoryEnterHandler}
               value={category}
               variant="outlined"
               margin="normal"
@@ -215,7 +221,10 @@ const Todo = (props) => {
 
                   <p className="category">{category}</p>
                   <div onClick={() => deleteCategoryHandler(index)}>
-                    <FontAwesomeIcon icon={faTrashAlt} />
+                    <FontAwesomeIcon
+                      icon={faTrashAlt}
+                      style={{ cursor: "pointer" }}
+                    />
                   </div>
                 </div>
               ))}
