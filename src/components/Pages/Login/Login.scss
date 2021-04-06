@@ -1,20 +1,35 @@
 .container {
   display: flex;
+
+  @media (max-width: 767px) {
+    flex-direction: column-reverse;
+  }
   background-color: #db718f;
-}
-.cardImg {
-  height: 100vh;
-  width: 70vw;
-  object-fit: none;
-}
-.loginCardContainer {
-  width: 50%;
-  margin: auto;
-  border: 1px solid black;
-  margin: 5px;
-}
-.loginCardContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  .loginCardContainer {
+    width: 80vw;
+    margin: auto;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @media (max-width: 767px) {
+      width: 100vw;
+      height: 40vh;
+      align-items: flex-start;
+      margin-top: 2rem;
+    }
+    .input {
+      margin-top: 0.5rem;
+    }
+  }
+  .cardImg {
+    height: 100vh;
+    width: 70vw;
+    object-fit: none;
+    @media (max-width: 767px) {
+      width: 100vw;
+      height: 60vh;
+      object-fit: cover;
+    }
+  }
 }
