@@ -6,17 +6,22 @@ import Button from "@material-ui/core/Button";
 import LoginImg from "../../../assets/pixel.png";
 import "./Login.scss";
 import { TextField } from "@material-ui/core";
+
 const Login = () => {
   let history = useHistory();
+
   const firstNameHandler = (e) => {
     localStorage.setItem("firstName", e.target.value);
   };
+
   const lastNameHandler = (e) => {
     localStorage.setItem("lastName", e.target.value);
   };
+
   const enterHandler = (e) => {
     e.keyCode === 13 && history.push("/todo");
   };
+
   return (
     <div className="container">
       <div className="loginCardContainer">

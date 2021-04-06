@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import "./Todo.scss";
 
 const Todo = () => {
@@ -12,13 +14,9 @@ const Todo = () => {
   const [selectedCategoryList, setSelectedCategoryList] = useState([]);
 
   useEffect(() => {
-    console.log(todoItem, "todoItem useeffetc");
-    console.log(todoCards, "testingggg");
-    console.log(cardId, "cardId");
-    //console.log(selectedCategoryList, "selectedCategoryList");
-    //console.log(category, "category");
-    //console.log(categories, "categories");
-  }, [todoItem, todoCards, selectedCategoryList, cardId]);
+    console.log(todoCards, "cards");
+    console.log(selectedCategoryList, "selectedCategoryList");
+  }, [todoItem, todoCards, selectedCategoryList, cardId, categories]);
 
   const createHandler = () => {
     if (selectedCategoryList.length === 0) {
@@ -47,19 +45,15 @@ const Todo = () => {
     let cards = [...todoCards];
     let cardIndex = cards.indexOf(cards.find((card) => card.id === cardId));
     let card = cards[cardIndex];
-    console.warn(card);
     let todo = todoItem[cardId];
-    console.warn(todo);
     if (todo === undefined || todo === "") {
-      alert("Invalid todo input.");
+      alert("Invalid input. Please enter a todo.");
     } else {
       let cardTodos = card.todos;
       cardTodos = [...cardTodos, { todo: todo, isChecked: false }];
-      console.log(cardTodos, "cardtodos ın addtodo");
       card.todos = cardTodos;
       cards[cardIndex] = card;
       setTodoCards(cards);
-      console.log(cards, "cards");
       let newTodoItems = [...todoItem];
       newTodoItems[cardId] = "";
       setTodoItem(newTodoItems);
@@ -71,10 +65,7 @@ const Todo = () => {
     let newCardIndex = cards.indexOf(cards.find((card) => card.id === cardId));
     let card = cards[newCardIndex];
     let cardTodos = card.todos;
-    console.log(cardIndex, "cardIndex");
-    console.log(cardTodos, "cardTodos");
     cardTodos.splice(cardIndex, 1);
-    console.log(cardTodos, "cardTodos");
     card.todos = cardTodos;
     cards[newCardIndex] = card;
     setTodoCards(cards);
@@ -110,9 +101,12 @@ const Todo = () => {
   const categoryOnChangeHandler = (e) => {
     setCategory(e.target.value);
   };
+
   const addCategory = () => {
     if (category === "" || category === undefined) {
-      alert("Invalid category input.");
+      alert("Invalid input. Plase enter a category.");
+    } else if (categories.includes(category)) {
+      alert("This category already exists.");
     } else {
       let newCategories = [...categories, category];
       setCategories(newCategories);
@@ -132,39 +126,41 @@ const Todo = () => {
 
   const saveHandler = (cardId) => {
     let cards = [...todoCards];
-    console.warn(cards);
     let cardIndex = cards.indexOf(cards.find((card) => card.id === cardId));
-    console.warn(cardIndex, "cardIndex");
     let card = cards[cardIndex];
-    console.warn(card);
     let isCardSaved = !card.isSaved;
-    console.warn(isCardSaved);
     card.isSaved = isCardSaved;
-    console.warn(card);
     cards[cardIndex] = card;
     setTodoCards(cards);
+  };
+
+  const deleteCategoryHandler = (index) => {
+    let newCategories = [...categories];
+    let deleted = newCategories.splice(index, 1);
+    setCategories(newCategories);
+    let newSelectedCategoryList = selectedCategoryList.filter(
+      (item) => item !== deleted[0]
+    );
+    setSelectedCategoryList([...newSelectedCategoryList]);
+    newSelectedCategoryList.length === 0 && setTodoCards([]);
   };
 
   return (
     <div className="todoPageContainer">
       <div className="column">
         <div className="userInfoContainer">
-          <div
-            style={{
-              height: " 100px",
-              width: "100px",
-              border: "1px solid black",
-            }}
-          ></div>
+          <FontAwesomeIcon size="5x" icon={faUserCircle} />
           <div className="nameContainer">
-            <p>{fName}</p>
-            <p> {lName}</p>
+            <div>{fName}</div>
+            <div> {lName}</div>
           </div>
         </div>
         <div className="categorySection">
-          <h2>Categories</h2>
-          <input onChange={categoryOnChangeHandler} value={category}></input>
-          <button onClick={addCategory}>add</button>
+          <div id="categoryTitle">Categories</div>
+          <div className="categoryInputContainer">
+            <input onChange={categoryOnChangeHandler} value={category}></input>
+            <button onClick={addCategory}>Add</button>
+          </div>
           <div className="categoryList">
             {categories.length > 0 &&
               categories.map((category, index) => (
@@ -174,6 +170,9 @@ const Todo = () => {
                     onClick={() => categoryCheckBoxHandler(index)}
                   ></input>
                   <p className="category">{category}</p>
+                  <button onClick={() => deleteCategoryHandler(index)}>
+                    &times;
+                  </button>
                 </div>
               ))}
           </div>
