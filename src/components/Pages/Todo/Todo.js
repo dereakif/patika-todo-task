@@ -233,20 +233,27 @@ const Todo = (props) => {
             {categories.length > 0 &&
               categories.map((category, index) => (
                 <div key={index} className="categoryContainer">
-                  <Checkbox
-                    name="checkedB"
-                    color="primary"
-                    checked={category.isChecked}
-                    onClick={() => categoryCheckBoxHandler(category.id)}
-                  />
-
-                  <p className="category">{category.name}</p>
-                  <div onClick={() => deleteCategoryHandler(category.id)}>
-                    <FontAwesomeIcon
-                      icon={faTrashAlt}
-                      style={{ cursor: "pointer" }}
+                  <div
+                    style={{
+                      display: "flex",
+                      alignContent: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Checkbox
+                      name="checkedB"
+                      color="primary"
+                      checked={category.isChecked}
+                      onClick={() => categoryCheckBoxHandler(category.id)}
                     />
+
+                    <p className="category">{category.name}</p>
                   </div>
+                  <FontAwesomeIcon
+                    onClick={() => deleteCategoryHandler(category.id)}
+                    icon={faTrashAlt}
+                    style={{ cursor: "pointer" }}
+                  />
                 </div>
               ))}
           </div>
@@ -320,28 +327,29 @@ const Todo = (props) => {
                   <div className="todoOverflow">
                     {todoCard.todos.map((item, todoIndex) => (
                       <div className="todoContainer" key={todoIndex}>
-                        <input
-                          type="checkbox"
-                          onClick={() =>
-                            checkBoxHandler(todoCard.id, todoIndex)
-                          }
-                        />
-                        <div
-                          className="todoItem"
-                          style={{
-                            textDecoration: item.isChecked
-                              ? "line-through"
-                              : "none",
-                          }}
-                        >
-                          {item.todo}
+                        <div style={{ display: "flex" }}>
+                          <input
+                            type="checkbox"
+                            onClick={() =>
+                              checkBoxHandler(todoCard.id, todoIndex)
+                            }
+                          />
+                          <div
+                            className="todoItem"
+                            style={{
+                              textDecoration: item.isChecked
+                                ? "line-through"
+                                : "none",
+                            }}
+                          >
+                            {item.todo}
+                          </div>
                         </div>
-                        <button
+                        <FontAwesomeIcon
                           onClick={() => deleteHandler(todoIndex, todoCard.id)}
-                          style={{ height: "max-content" }}
-                        >
-                          &times;
-                        </button>
+                          icon={faTrashAlt}
+                          style={{ cursor: "pointer" }}
+                        />
                       </div>
                     ))}
                   </div>
