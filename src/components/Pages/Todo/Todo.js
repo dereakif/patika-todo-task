@@ -141,6 +141,7 @@ const Todo = () => {
     let newSelectedCategoryList = selectedCategoryList.filter(
       (item) => item !== deleted[0]
     );
+    setSelectedCategoryList(newSelectedCategoryList);
     let cards = todoCards.filter((card) => {
       return card.category.every((category) =>
         newSelectedCategoryList.includes(category)
@@ -148,6 +149,7 @@ const Todo = () => {
     });
     setTodoCards(cards);
   };
+
   const titleOnChangeHandler = (event, id) => {
     let cards = [...todoCards];
     let cardIndex = cards.indexOf(cards.find((card) => card.id === id));
@@ -162,8 +164,8 @@ const Todo = () => {
         <div className="userInfoContainer">
           <FontAwesomeIcon size="5x" icon={faUserCircle} />
           <div className="nameContainer">
-            <div>{fName}</div>
-            <div> {lName}</div>
+            <div className="userFirstName">{fName}</div>
+            <div className="userLastName"> {lName}</div>
           </div>
         </div>
         <div className="categorySection">

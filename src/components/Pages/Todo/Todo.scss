@@ -16,6 +16,12 @@
         flex-direction: column;
         margin: 1rem;
         line-height: 2;
+        .userFirstName {
+          text-transform: capitalize;
+        }
+        .userLastName {
+          text-transform: uppercase;
+        }
       }
     }
     .categorySection {

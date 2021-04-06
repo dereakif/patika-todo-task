@@ -6,20 +6,36 @@ import Button from "@material-ui/core/Button";
 import LoginImg from "../../../assets/pixel.png";
 import "./Login.scss";
 import { TextField } from "@material-ui/core";
+import { useState } from "react";
 
 const Login = () => {
   let history = useHistory();
 
+  const [firstName, setfirstName] = useState("");
+  const [lastName, setlastName] = useState("");
+
   const firstNameHandler = (e) => {
-    localStorage.setItem("firstName", e.target.value);
+    setfirstName(e.target.value);
+    //localStorage.setItem("firstName", e.target.value);
   };
 
   const lastNameHandler = (e) => {
-    localStorage.setItem("lastName", e.target.value);
+    setlastName(e.target.value);
+    //localStorage.setItem("lastName", e.target.value);
+  };
+
+  const loginOnClickHandler = () => {
+    if (firstName.length > 0 && lastName.length > 0) {
+      localStorage.setItem("firstName", firstName);
+      localStorage.setItem("lastName", lastName);
+      history.push("/todo");
+    } else {
+      alert("Please fill the required fields");
+    }
   };
 
   const enterHandler = (e) => {
-    e.keyCode === 13 && history.push("/todo");
+    e.keyCode === 13 && loginOnClickHandler();
   };
 
   return (
@@ -31,6 +47,8 @@ const Login = () => {
           <div className="input">
             <TextField
               onChange={firstNameHandler}
+              onKeyDown={enterHandler}
+              value={firstName}
               variant="outlined"
               margin="normal"
               required
@@ -46,6 +64,7 @@ const Login = () => {
             <TextField
               onChange={lastNameHandler}
               onKeyDown={enterHandler}
+              value={lastName}
               variant="outlined"
               margin="normal"
               required
@@ -53,18 +72,15 @@ const Login = () => {
               label="Last Name"
               name="firtName"
               autoComplete="first name"
-              autoFocus
             />
           </div>
 
-          <Button variant="contained" color="primary">
-            <Link
-              to="/todo"
-              className="loginButton"
-              style={{ textDecoration: "none", color: "white" }}
-            >
-              Login
-            </Link>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={loginOnClickHandler}
+          >
+            Login
           </Button>
         </div>
       </div>
