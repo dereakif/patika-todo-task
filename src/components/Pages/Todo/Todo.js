@@ -336,7 +336,15 @@ const Todo = (props) => {
                     ></input>
                     <button onClick={() => addTodo(todoCard.id)}>add</button>
                   </div>
-                  <div className="todoOverflow">
+                  <div
+                    className="todoOverflow"
+                    style={{
+                      height: todoCard.isSaved && "240px",
+                      display: todoCard.isSaved && "flex",
+                      flexDirection: todoCard.isSaved && "column",
+                      flexWrap: todoCard.isSaved && "wrap",
+                    }}
+                  >
                     {todoCard.todos.map((item, todoIndex) => (
                       <div className="todoContainer" key={todoIndex}>
                         <div style={{ display: "flex" }}>
