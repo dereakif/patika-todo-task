@@ -315,12 +315,21 @@ const Todo = (props) => {
                     </div>
                   </div>
                   <div className="cardTitle">
-                    <input
+                    <TextField
+                      value={todoCard.title}
+                      onChange={(e) => titleOnChangeHandler(e, todoCard.id)}
+                      inputProps={{ min: 0, style: { textAlign: "center" } }}
+                      label="Title"
+                      id="todo-title"
+                      variant="filled"
+                      size="small"
+                    />
+                    {/*  <input
                       style={{ textAlign: "center" }}
                       type="text"
                       value={todoCard.title}
                       onChange={(e) => titleOnChangeHandler(e, todoCard.id)}
-                    ></input>
+                    ></input> */}
                   </div>
                   <div
                     style={{
@@ -328,13 +337,23 @@ const Todo = (props) => {
                       margin: "1rem 0",
                     }}
                   >
-                    <input
-                      type="text"
+                    <TextField
                       value={todoItem[todoCard.id]}
                       onChange={(e) => onChangeHandler(e, todoCard.id)}
                       onKeyDown={(e) => todoEnterHandler(e, todoCard.id)}
-                    ></input>
-                    <button onClick={() => addTodo(todoCard.id)}>add</button>
+                      inputProps={{ min: 0, style: { textAlign: "center" } }}
+                      label="Todo"
+                      id="todo-title"
+                      size="small"
+                    />
+                    <Button
+                      style={{ marginTop: "1rem" }}
+                      variant="contained"
+                      color="primary"
+                      onClick={() => addTodo(todoCard.id)}
+                    >
+                      Add
+                    </Button>
                   </div>
                   <div
                     className="todoOverflow"
@@ -379,20 +398,28 @@ const Todo = (props) => {
                       </div>
                     ))}
                   </div>
-
-                  <div
+                  <Button
+                    onClick={() => saveHandler(todoCard.id)}
                     className="saveBtn"
                     style={{ display: todoCard.isSaved ? "none" : "unset" }}
-                    onClick={() => saveHandler(todoCard.id)}
+                    variant="contained"
+                    color="primary"
                   >
                     SAVE
-                  </div>
+                  </Button>
                 </div>
               </div>
             ))}
         <div className="createCard card">
-          <h1>YOUR NEXT PROJECT</h1>
-          <button onClick={createHandler}>CREATE</button>
+          <h1>NEW PROJECT</h1>
+          <Button
+            style={{ margin: "auto" }}
+            variant="contained"
+            color="primary"
+            onClick={createHandler}
+          >
+            CREATE
+          </Button>
         </div>
       </div>
     </div>
