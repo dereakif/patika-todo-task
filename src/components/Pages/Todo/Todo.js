@@ -21,14 +21,16 @@ const Todo = (props) => {
   const [todoItem, setTodoItem] = useState([]);
   const [category, setCategory] = useState("");
   const [categories, setCategories] = useState([]);
-  const [selectedCategoryList, setSelectedCategoryList] = useState([]);
-
+  const [categoryId, setCategoryId] = useState(0);
   useEffect(() => {
     console.log(todoCards, "cards");
-    console.log(selectedCategoryList, "selectedCategoryList");
-  }, [todoItem, todoCards, selectedCategoryList, cardId, categories]);
+    console.log(categories, "categories");
+  }, [todoItem, todoCards, cardId, categories]);
 
   const createHandler = () => {
+    let selectedCategoryList = categories
+      .map((item) => item.isChecked === true && item.name)
+      .filter(Boolean);
     if (selectedCategoryList.length === 0) {
       alert("First select a category.");
     } else {
@@ -118,20 +120,23 @@ const Todo = (props) => {
     } else if (categories.includes(category)) {
       alert("This category already exists.");
     } else {
-      let newCategories = [...categories, category];
+      let newCategory = { id: categoryId, name: category, isChecked: false };
+      let newCategories = [...categories, newCategory];
       setCategories(newCategories);
       setCategory("");
+      setCategoryId(categoryId + 1);
     }
   };
 
-  const categoryCheckBoxHandler = (index) => {
-    let selectedCategory = categories[index];
-    let newSelectedCategoryList = selectedCategoryList.filter(
-      (item) => item !== selectedCategory
+  const categoryCheckBoxHandler = (id) => {
+    let categoryIndex = categories.indexOf(
+      categories.find((cat) => cat.id === id)
     );
-    !selectedCategoryList.includes(selectedCategory)
-      ? setSelectedCategoryList([...selectedCategoryList, selectedCategory])
-      : setSelectedCategoryList(newSelectedCategoryList);
+    let newCategories = [...categories];
+    let newCategory = newCategories[categoryIndex];
+    newCategory.isChecked = !newCategory.isChecked;
+    newCategories[categoryIndex] = newCategory;
+    setCategories(newCategories);
   };
 
   const saveHandler = (cardId) => {
@@ -144,19 +149,17 @@ const Todo = (props) => {
     setTodoCards(cards);
   };
 
-  const deleteCategoryHandler = (index) => {
-    let newCategories = [...categories];
-    let deleted = newCategories.splice(index, 1);
-    setCategories(newCategories);
-    let newSelectedCategoryList = selectedCategoryList.filter(
-      (item) => item !== deleted[0]
+  const deleteCategoryHandler = (id) => {
+    let categoryIndex = categories.indexOf(
+      categories.find((cat) => cat.id === id)
     );
-    setSelectedCategoryList(newSelectedCategoryList);
-    let cards = todoCards.filter((card) => {
-      return card.category.every((category) =>
-        newSelectedCategoryList.includes(category)
-      );
-    });
+    let newCategories = [...categories];
+    let deleted = newCategories.splice(categoryIndex, 1);
+    let deletedCategory = deleted[0].name;
+    setCategories(newCategories);
+    let cards = todoCards.filter(
+      (card) => !card.category.includes(deletedCategory) && card
+    );
     setTodoCards(cards);
   };
 
@@ -172,7 +175,14 @@ const Todo = (props) => {
   const categoryEnterHandler = (e) => {
     e.keyCode === 13 && addCategory();
   };
-
+  const resetAll = () => {
+    setTodoCards([]);
+    setCardId(0);
+    setTodoItem([]);
+    setCategory("");
+    setCategories([]);
+    setCategoryId(0);
+  };
   return (
     <div className="todoPageContainer">
       <div className="column">
@@ -200,14 +210,24 @@ const Todo = (props) => {
                 className: classes.input,
               }}
             />
-            <Button
-              style={{ marginTop: "1rem" }}
-              variant="contained"
-              color="primary"
-              onClick={addCategory}
-            >
-              Add
-            </Button>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <Button
+                style={{ marginTop: "1rem" }}
+                variant="contained"
+                color="primary"
+                onClick={addCategory}
+              >
+                Add
+              </Button>
+              <Button
+                style={{ marginTop: "1rem" }}
+                variant="contained"
+                color="secondary"
+                onClick={resetAll}
+              >
+                Reset All
+              </Button>
+            </div>
           </div>
           <div className="categoryList">
             {categories.length > 0 &&
@@ -216,11 +236,12 @@ const Todo = (props) => {
                   <Checkbox
                     name="checkedB"
                     color="primary"
-                    onClick={() => categoryCheckBoxHandler(index)}
+                    checked={category.isChecked}
+                    onClick={() => categoryCheckBoxHandler(category.id)}
                   />
 
-                  <p className="category">{category}</p>
-                  <div onClick={() => deleteCategoryHandler(index)}>
+                  <p className="category">{category.name}</p>
+                  <div onClick={() => deleteCategoryHandler(category.id)}>
                     <FontAwesomeIcon
                       icon={faTrashAlt}
                       style={{ cursor: "pointer" }}
@@ -235,11 +256,14 @@ const Todo = (props) => {
 
       <div className="cardContainer">
         {todoCards.length > 0 &&
-          selectedCategoryList.length > 0 &&
+          categories.length > 0 &&
           todoCards
             .filter((card) => {
               return card.category.every((category) =>
-                selectedCategoryList.includes(category)
+                categories
+                  .map((item) => item.isChecked === true && item.name)
+                  .filter(Boolean)
+                  .includes(category)
               );
             })
             .map((todoCard, cardIndex) => (
