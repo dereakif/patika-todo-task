@@ -211,13 +211,7 @@ const Todo = () => {
                   </div>
                 </div>
                 <div className="cardContent">
-                  <div
-                    className="closeBtnCotainer"
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                    }}
-                  >
+                  <div className="closeBtnCotainer">
                     <div style={{ alignSelf: "center" }}>
                       {todoCard.category.map((item, i) => (
                         <span key={i}>{item} </span>
@@ -226,8 +220,6 @@ const Todo = () => {
                     <div
                       className="closeBtn"
                       style={{
-                        cursor: "pointer",
-                        width: "max-content",
                         display: todoCard.isSaved ? "none" : "unset",
                       }}
                       onClick={() => closeHandler(todoCard.id)}
@@ -244,7 +236,7 @@ const Todo = () => {
                     onChange={(e) => onChangeHandler(e, todoCard.id)}
                   ></input>
                   <button onClick={() => addTodo(todoCard.id)}>add</button>
-                  <div style={{ overflowY: "auto", height: "170px" }}>
+                  <div className="todoOverflow">
                     {todoCard.todos.map((item, todoIndex) => (
                       <div className="todoContainer" key={todoIndex}>
                         <input
@@ -254,6 +246,7 @@ const Todo = () => {
                           }
                         />
                         <div
+                          className="todoItem"
                           style={{
                             textDecoration: item.isChecked
                               ? "line-through"

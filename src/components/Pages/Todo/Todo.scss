@@ -18,34 +18,34 @@
         line-height: 2;
       }
     }
-  }
-
-  .categorySection {
-    border: 1px solid black;
-    padding: 1rem;
-    #categoryTitle {
-      font-size: 2rem;
-      font-weight: 500;
-      margin: 1rem 0;
-    }
-    .categoryInputContainer {
-      margin: 2rem 0;
-    }
-    .categoryList {
-      display: flex;
-      flex-direction: column;
-      .categoryContainer {
-        line-height: 0;
+    .categorySection {
+      border: 1px solid black;
+      padding: 1rem;
+      #categoryTitle {
+        font-size: 2rem;
+        font-weight: 500;
+        margin: 1rem 0;
+      }
+      .categoryInputContainer {
+        margin: 2rem 0;
+      }
+      .categoryList {
         display: flex;
-        align-items: center;
-        justify-content: space-around;
-        border: 1px solid black;
-        margin-top: 1rem;
-        .category {
+        flex-direction: column;
+        .categoryContainer {
+          line-height: 0;
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+          border: 1px solid black;
+          margin-top: 1rem;
+          .category {
+          }
         }
       }
     }
   }
+
   .cardContainer {
     display: flex;
     flex-wrap: wrap;
@@ -70,31 +70,51 @@
         &:hover {
           opacity: 1;
         }
+        .editBtn {
+          align-self: center;
+          border: 1px solid black;
+          background-color: whitesmoke;
+          cursor: pointer;
+        }
+        .deleteBtn {
+          align-self: center;
+          border: 1px solid black;
+          background-color: whitesmoke;
+          cursor: pointer;
+        }
       }
-      .todoContainer {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0.2rem 1rem;
+      .cardContent {
+        .closeBtnCotainer {
+          display: flex;
+          justify-content: space-between;
+          .closeBtn {
+            cursor: pointer;
+            width: max-content;
+          }
+        }
+        .cardTitle {
+        }
+        .todoOverflow {
+          overflow-y: auto;
+          height: 170px;
+          .todoContainer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.2rem 1rem;
+            .todoItem {
+            }
+          }
+        }
+        .saveBtn {
+          border: 1px solid black;
+          bottom: 0;
+          width: 100%;
+          cursor: pointer;
+        }
       }
-      .editBtn {
-        align-self: center;
-        border: 1px solid black;
-        background-color: whitesmoke;
-        cursor: pointer;
-      }
-      .deleteBtn {
-        align-self: center;
-        border: 1px solid black;
-        background-color: whitesmoke;
-        cursor: pointer;
-      }
-      .saveBtn {
-        border: 1px solid black;
-        bottom: 0;
-        width: 100%;
-        cursor: pointer;
-      }
+    }
+    .createCard {
     }
   }
 }
