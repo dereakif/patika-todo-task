@@ -175,6 +175,9 @@ const Todo = (props) => {
   const categoryEnterHandler = (e) => {
     e.keyCode === 13 && addCategory();
   };
+  const todoEnterHandler = (e, id) => {
+    e.keyCode === 13 && addTodo(id);
+  };
   const resetAll = () => {
     setTodoCards([]);
     setCardId(0);
@@ -313,22 +316,34 @@ const Todo = (props) => {
                   </div>
                   <div className="cardTitle">
                     <input
+                      style={{ textAlign: "center" }}
                       type="text"
                       value={todoCard.title}
                       onChange={(e) => titleOnChangeHandler(e, todoCard.id)}
                     ></input>
                   </div>
-                  <input
-                    type="text"
-                    value={todoItem[todoCard.id]}
-                    onChange={(e) => onChangeHandler(e, todoCard.id)}
-                  ></input>
-                  <button onClick={() => addTodo(todoCard.id)}>add</button>
+                  <div
+                    style={{
+                      display: todoCard.isSaved ? "none" : "inherit",
+                      margin: "1rem 0",
+                    }}
+                  >
+                    <input
+                      type="text"
+                      value={todoItem[todoCard.id]}
+                      onChange={(e) => onChangeHandler(e, todoCard.id)}
+                      onKeyDown={(e) => todoEnterHandler(e, todoCard.id)}
+                    ></input>
+                    <button onClick={() => addTodo(todoCard.id)}>add</button>
+                  </div>
                   <div className="todoOverflow">
                     {todoCard.todos.map((item, todoIndex) => (
                       <div className="todoContainer" key={todoIndex}>
                         <div style={{ display: "flex" }}>
                           <input
+                            style={{
+                              display: todoCard.isSaved ? "none" : "unset",
+                            }}
                             type="checkbox"
                             onClick={() =>
                               checkBoxHandler(todoCard.id, todoIndex)
@@ -348,7 +363,10 @@ const Todo = (props) => {
                         <FontAwesomeIcon
                           onClick={() => deleteHandler(todoIndex, todoCard.id)}
                           icon={faTrashAlt}
-                          style={{ cursor: "pointer" }}
+                          style={{
+                            display: todoCard.isSaved ? "none" : "unset",
+                            cursor: "pointer",
+                          }}
                         />
                       </div>
                     ))}
