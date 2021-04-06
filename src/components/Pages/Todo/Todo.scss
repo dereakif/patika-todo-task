@@ -1,11 +1,7 @@
 .todoPageContainer {
   display: flex;
   background-color: #e1ccec;
-  -webkit-box-shadow: 0px 0px 26px -9px rgba(0, 0, 0, 0.6);
-  -moz-box-shadow: 0px 0px 26px -9px rgba(0, 0, 0, 0.6);
-  box-shadow: 0px 0px 26px -9px rgba(0, 0, 0, 0.6);
 
-  /* 484c7f */
   @media (max-width: 767px) {
     flex-direction: column;
   }
@@ -102,13 +98,18 @@
       justify-content: center;
     }
     .card {
+      background-color: #d291bc;
       display: flex;
       flex-direction: column;
       position: relative;
-      width: 200px;
-      height: 300px;
+      width: 300px;
+      height: 400px;
       margin: 15px;
-      border: 1px solid black;
+      border-radius: 1rem;
+      -webkit-box-shadow: 0px 0px 26px -9px rgba(0, 0, 0, 0.6);
+      -moz-box-shadow: 0px 0px 26px -9px rgba(0, 0, 0, 0.6);
+      box-shadow: 0px 0px 26px -9px rgba(0, 0, 0, 0.6);
+
       .overlay {
         position: absolute;
         height: 100%;
@@ -122,21 +123,21 @@
         }
         .editBtn {
           align-self: center;
-          border: 1px solid black;
-          background-color: whitesmoke;
           cursor: pointer;
         }
         .deleteBtn {
           align-self: center;
-          border: 1px solid black;
-          background-color: whitesmoke;
           cursor: pointer;
         }
       }
       .cardContent {
+        position: relative;
         .closeBtnCotainer {
           display: flex;
           justify-content: space-between;
+          margin: 5px 10px 20px;
+          border-bottom: #484c7f 1px solid;
+          padding-bottom: 10px;
           .closeBtn {
             cursor: pointer;
             width: max-content;
@@ -146,7 +147,7 @@
         }
         .todoOverflow {
           overflow-y: auto;
-          height: 150px;
+          height: 170px;
           .todoContainer {
             display: flex;
             align-items: center;
@@ -156,12 +157,10 @@
             }
           }
         }
-        .saveBtn {
-          border: 1px solid black;
-          bottom: 0;
-          width: 100%;
-          cursor: pointer;
-        }
+      }
+      .saveBtn {
+        margin: auto;
+        cursor: pointer;
       }
     }
     .createCard {

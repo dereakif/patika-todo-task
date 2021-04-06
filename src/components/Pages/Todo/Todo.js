@@ -284,22 +284,29 @@ const Todo = (props) => {
                     display: todoCard.isSaved ? "flex" : "none",
                   }}
                 >
-                  <div
+                  <Button
                     className="editBtn"
                     onClick={() => saveHandler(todoCard.id)}
+                    variant="contained"
+                    color="primary"
                   >
                     Edit
-                  </div>
-                  <div
+                  </Button>
+                  <Button
                     className="deleteBtn"
                     onClick={() => closeHandler(todoCard.id)}
+                    variant="contained"
+                    color="secondary"
                   >
                     Delete
-                  </div>
+                  </Button>
                 </div>
                 <div className="cardContent">
                   <div className="closeBtnCotainer">
                     <div style={{ alignSelf: "center" }}>
+                      {todoCard.category.length > 1
+                        ? "Categories: "
+                        : "Category: "}
                       {todoCard.category.map((item, i) => (
                         <span key={i}>{item} </span>
                       ))}
@@ -324,12 +331,6 @@ const Todo = (props) => {
                       variant="filled"
                       size="small"
                     />
-                    {/*  <input
-                      style={{ textAlign: "center" }}
-                      type="text"
-                      value={todoCard.title}
-                      onChange={(e) => titleOnChangeHandler(e, todoCard.id)}
-                    ></input> */}
                   </div>
                   <div
                     style={{
@@ -343,7 +344,7 @@ const Todo = (props) => {
                       onKeyDown={(e) => todoEnterHandler(e, todoCard.id)}
                       inputProps={{ min: 0, style: { textAlign: "center" } }}
                       label="Todo"
-                      id="todo-title"
+                      id="todo-item"
                       size="small"
                     />
                     <Button
@@ -362,6 +363,7 @@ const Todo = (props) => {
                       display: todoCard.isSaved && "flex",
                       flexDirection: todoCard.isSaved && "column",
                       flexWrap: todoCard.isSaved && "wrap",
+                      margin: todoCard.isSaved && "30px",
                     }}
                   >
                     {todoCard.todos.map((item, todoIndex) => (
@@ -398,16 +400,16 @@ const Todo = (props) => {
                       </div>
                     ))}
                   </div>
-                  <Button
-                    onClick={() => saveHandler(todoCard.id)}
-                    className="saveBtn"
-                    style={{ display: todoCard.isSaved ? "none" : "unset" }}
-                    variant="contained"
-                    color="primary"
-                  >
-                    SAVE
-                  </Button>
                 </div>
+                <Button
+                  onClick={() => saveHandler(todoCard.id)}
+                  className="saveBtn"
+                  style={{ display: todoCard.isSaved ? "none" : "unset" }}
+                  variant="contained"
+                  color="primary"
+                >
+                  SAVE
+                </Button>
               </div>
             ))}
         <div className="createCard card">
