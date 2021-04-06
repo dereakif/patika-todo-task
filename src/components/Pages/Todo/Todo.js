@@ -1,9 +1,19 @@
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import { faUserCircle, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { Button, TextField, Checkbox } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 import "./Todo.scss";
-
-const Todo = () => {
+const styles = {
+  root: {
+    borderColor: "white",
+  },
+  input: {
+    color: "#310c40",
+  },
+};
+const Todo = (props) => {
+  const { classes } = props;
   let fName = localStorage.getItem("firstName");
   let lName = localStorage.getItem("lastName");
   const [todoCards, setTodoCards] = useState([]);
@@ -171,21 +181,42 @@ const Todo = () => {
         <div className="categorySection">
           <div id="categoryTitle">Categories</div>
           <div className="categoryInputContainer">
-            <input onChange={categoryOnChangeHandler} value={category}></input>
-            <button onClick={addCategory}>Add</button>
+            <TextField
+              onChange={categoryOnChangeHandler}
+              value={category}
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              label="Category"
+              name="category"
+              InputProps={{
+                className: classes.input,
+              }}
+            />
+            <Button
+              style={{ marginTop: "1rem" }}
+              variant="contained"
+              color="primary"
+              onClick={addCategory}
+            >
+              Add
+            </Button>
           </div>
           <div className="categoryList">
             {categories.length > 0 &&
               categories.map((category, index) => (
                 <div key={index} className="categoryContainer">
-                  <input
-                    type="checkbox"
+                  <Checkbox
+                    name="checkedB"
+                    color="primary"
                     onClick={() => categoryCheckBoxHandler(index)}
-                  ></input>
+                  />
+
                   <p className="category">{category}</p>
-                  <button onClick={() => deleteCategoryHandler(index)}>
-                    &times;
-                  </button>
+                  <div onClick={() => deleteCategoryHandler(index)}>
+                    <FontAwesomeIcon icon={faTrashAlt} />
+                  </div>
                 </div>
               ))}
           </div>
@@ -300,4 +331,4 @@ const Todo = () => {
     </div>
   );
 };
-export default Todo;
+export default withStyles(styles)(Todo);

@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-//import { withRouter } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 
@@ -36,7 +34,12 @@ const Login = (props) => {
   };
 
   const loginOnClickHandler = () => {
-    if (firstName.length > 0 && lastName.length > 0) {
+    if (
+      firstName !== "" &&
+      firstName !== undefined &&
+      lastName !== "" &&
+      lastName !== undefined
+    ) {
       localStorage.setItem("firstName", firstName);
       localStorage.setItem("lastName", lastName);
       history.push("/todo");
