@@ -141,10 +141,21 @@ const Todo = () => {
     let newSelectedCategoryList = selectedCategoryList.filter(
       (item) => item !== deleted[0]
     );
-    setSelectedCategoryList([...newSelectedCategoryList]);
-    newSelectedCategoryList.length === 0 && setTodoCards([]);
+    let cards = todoCards.filter((card) => {
+      return card.category.every((category) =>
+        newSelectedCategoryList.includes(category)
+      );
+    });
+    setTodoCards(cards);
   };
-
+  const titleOnChangeHandler = (event, id) => {
+    let cards = [...todoCards];
+    let cardIndex = cards.indexOf(cards.find((card) => card.id === id));
+    let card = cards[cardIndex];
+    card.title = event.target.value;
+    cards[cardIndex] = card;
+    setTodoCards(cards);
+  };
   return (
     <div className="todoPageContainer">
       <div className="column">
@@ -228,7 +239,11 @@ const Todo = () => {
                     </div>
                   </div>
                   <div className="cardTitle">
-                    <input type="text"></input>
+                    <input
+                      type="text"
+                      value={todoCard.title}
+                      onChange={(e) => titleOnChangeHandler(e, todoCard.id)}
+                    ></input>
                   </div>
                   <input
                     type="text"
