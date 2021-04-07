@@ -4,16 +4,13 @@ import Button from "@material-ui/core/Button";
 import LoginImg from "../../assets/pixel.png";
 import "./Login.scss";
 import { TextField } from "@material-ui/core";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const Login = () => {
   let history = useHistory();
 
   const [firstName, setfirstName] = useState(undefined);
   const [lastName, setlastName] = useState(undefined);
-  useEffect(() => {
-    console.log(firstName, lastName);
-  }, [firstName, lastName]);
 
   const firstNameHandler = (e) => {
     setfirstName(e.target.value);
