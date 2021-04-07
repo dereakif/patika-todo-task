@@ -2,18 +2,9 @@ import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { Button, TextField, Checkbox } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
 import "./Todo.scss";
-const styles = {
-  root: {
-    borderColor: "white",
-  },
-  input: {
-    color: "#310c40",
-  },
-};
-const Todo = (props) => {
-  const { classes } = props;
+
+const Todo = () => {
   let fName = localStorage.getItem("firstName");
   let lName = localStorage.getItem("lastName");
   const [todoCards, setTodoCards] = useState([]);
@@ -210,8 +201,13 @@ const Todo = (props) => {
               fullWidth
               label="Category"
               name="category"
-              InputProps={{
-                className: classes.input,
+              inputProps={{
+                style: {
+                  fontWeight: "500",
+                  fontSize: "20px",
+                  textTransform: "capitalize",
+                  color: "#40426E",
+                },
               }}
             />
             <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -219,7 +215,6 @@ const Todo = (props) => {
                 className="addCategory"
                 style={{ marginTop: "1rem" }}
                 variant="contained"
-                color="primary"
                 onClick={addCategory}
               >
                 Add
@@ -228,7 +223,6 @@ const Todo = (props) => {
                 className="resetAll"
                 style={{ marginTop: "1rem" }}
                 variant="contained"
-                color="secondary"
                 onClick={resetAll}
               >
                 Reset All
@@ -247,10 +241,10 @@ const Todo = (props) => {
                     }}
                   >
                     <Checkbox
-                      name="checkedB"
-                      color="primary"
+                      name="categoryCheckbox"
                       checked={category.isChecked}
                       onClick={() => categoryCheckBoxHandler(category.id)}
+                      style={{ color: "#2f3275" }}
                     />
 
                     <p className="category">{category.name}</p>
@@ -291,7 +285,6 @@ const Todo = (props) => {
                     className="editBtn"
                     onClick={() => saveHandler(todoCard.id)}
                     variant="contained"
-                    color="primary"
                   >
                     Edit
                   </Button>
@@ -299,7 +292,6 @@ const Todo = (props) => {
                     className="deleteBtn"
                     onClick={() => closeHandler(todoCard.id)}
                     variant="contained"
-                    color="secondary"
                   >
                     Delete
                   </Button>
@@ -325,24 +317,28 @@ const Todo = (props) => {
                     </div>
                   </div>
                   <div className="cardTitle">
-                    <TextField
-                      error={todoCard.title === " "}
-                      value={todoCard.title}
-                      onChange={(e) => titleOnChangeHandler(e, todoCard.id)}
-                      inputProps={{
-                        min: 0,
-                        style: {
-                          textAlign: "center",
-                          fontWeight: "600",
-                          fontSize: "24px",
-                          textTransform: "uppercase",
-                        },
-                      }}
-                      label="Title"
-                      id="todo-title"
-                      variant="filled"
-                      size="small"
-                    />
+                    {todoCard.isSaved ? (
+                      <h2>{todoCard.title}</h2>
+                    ) : (
+                      <TextField
+                        error={todoCard.title === " "}
+                        value={todoCard.title}
+                        onChange={(e) => titleOnChangeHandler(e, todoCard.id)}
+                        inputProps={{
+                          style: {
+                            textAlign: "center",
+                            fontWeight: "600",
+                            fontSize: "24px",
+                            textTransform: "uppercase",
+                            color: "#40426E",
+                          },
+                        }}
+                        label="Title"
+                        id="todo-title"
+                        variant="filled"
+                        size="small"
+                      />
+                    )}
                   </div>
                   <div
                     style={{
@@ -356,7 +352,6 @@ const Todo = (props) => {
                       onChange={(e) => onChangeHandler(e, todoCard.id)}
                       onKeyDown={(e) => todoEnterHandler(e, todoCard.id)}
                       inputProps={{
-                        min: 0,
                         style: { textAlign: "center", fontWeight: "500" },
                       }}
                       label="Todo"
@@ -367,7 +362,6 @@ const Todo = (props) => {
                       className="todoAdd"
                       style={{ marginTop: "1rem" }}
                       variant="contained"
-                      color="primary"
                       onClick={() => addTodo(todoCard.id)}
                     >
                       Add
@@ -385,8 +379,13 @@ const Todo = (props) => {
                   >
                     {todoCard.todos.map((item, todoIndex) => (
                       <div className="todoContainer" key={todoIndex}>
-                        <div style={{ display: "flex" }}>
-                          <input
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Checkbox
                             style={{
                               display: todoCard.isSaved ? "none" : "unset",
                             }}
@@ -423,7 +422,6 @@ const Todo = (props) => {
                   className="saveBtn"
                   style={{ display: todoCard.isSaved ? "none" : "unset" }}
                   variant="contained"
-                  color="primary"
                 >
                   SAVE
                 </Button>
@@ -435,7 +433,6 @@ const Todo = (props) => {
             className="createBtn"
             style={{ margin: "auto" }}
             variant="contained"
-            color="primary"
             onClick={createHandler}
           >
             CREATE
@@ -445,4 +442,4 @@ const Todo = (props) => {
     </div>
   );
 };
-export default withStyles(styles)(Todo);
+export default Todo;
