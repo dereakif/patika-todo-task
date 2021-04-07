@@ -72,8 +72,13 @@ const Login = (props) => {
               name="firtName"
               autoComplete="first name"
               autoFocus
-              InputProps={{
-                className: classes.input,
+              inputProps={{
+                style: {
+                  fontWeight: "600",
+                  fontSize: "24px",
+                  textTransform: "capitalize",
+                  color: "#113485e8",
+                },
               }}
             />
           </div>
@@ -91,8 +96,13 @@ const Login = (props) => {
               label="Last Name"
               name="firtName"
               autoComplete="first name"
-              InputProps={{
-                className: classes.input,
+              inputProps={{
+                style: {
+                  fontWeight: "600",
+                  fontSize: "24px",
+                  textTransform: "capitalize",
+                  color: "#113485e8",
+                },
               }}
             />
           </div>
