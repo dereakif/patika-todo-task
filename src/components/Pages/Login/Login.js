@@ -59,73 +59,42 @@ const Login = (props) => {
           <div className="header"></div>
           <div className="inputTitle"></div>
           <div className="input">
-            {firstName === "" ? (
-              <TextField
-                error
-                required
-                fullWidth
-                label="First Name"
-                value={firstName}
-                onChange={firstNameHandler}
-                variant="outlined"
-                margin="normal"
-                className={classes.root}
-                InputProps={{
-                  className: classes.input,
-                }}
-              />
-            ) : (
-              <TextField
-                onChange={firstNameHandler}
-                onKeyDown={enterHandler}
-                value={firstName}
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                label="First Name"
-                name="firtName"
-                autoComplete="first name"
-                autoFocus
-                InputProps={{
-                  className: classes.input,
-                }}
-              />
-            )}
+            <TextField
+              error={firstName === ""}
+              onChange={firstNameHandler}
+              onKeyDown={enterHandler}
+              value={firstName}
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              label="First Name"
+              name="firtName"
+              autoComplete="first name"
+              autoFocus
+              InputProps={{
+                className: classes.input,
+              }}
+            />
           </div>
           <div className="inputTitle"></div>
           <div className="input">
-            {lastName === "" ? (
-              <TextField
-                error
-                required
-                fullWidth
-                label="Last Name"
-                value={lastName}
-                onChange={lastNameHandler}
-                variant="outlined"
-                margin="normal"
-                InputProps={{
-                  className: classes.input,
-                }}
-              />
-            ) : (
-              <TextField
-                onChange={lastNameHandler}
-                onKeyDown={enterHandler}
-                value={lastName}
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                label="Last Name"
-                name="firtName"
-                autoComplete="first name"
-                InputProps={{
-                  className: classes.input,
-                }}
-              />
-            )}
+            <TextField
+              error={lastName === ""}
+              onChange={lastNameHandler}
+              onKeyDown={enterHandler}
+              value={lastName}
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              label="Last Name"
+              name="firtName"
+              autoComplete="first name"
+              InputProps={{
+                className: classes.input,
+              }}
+            />
           </div>
 
           <Button

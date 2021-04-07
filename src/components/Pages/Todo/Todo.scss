@@ -1,17 +1,14 @@
 .todoPageContainer {
   display: flex;
-  background-color: #e1ccec;
 
+  background-color: #40426e;
   @media (max-width: 767px) {
     flex-direction: column;
   }
   .column {
     height: 100vh;
-
-    border-right: 2px solid #484c7f;
-    background-color: #ffe3fe;
-    color: #39375b;
-
+    border-right: 2px solid #0c0c15;
+    background-color: #cdcff5;
     @media (max-width: 767px) {
       padding: 2rem 0rem 1rem;
       border-right: 0;
@@ -19,11 +16,11 @@
     }
     .userInfoContainer {
       border-radius: 1rem;
-      background-color: #d291bc;
+      background-color: #f898b748;
       -webkit-box-shadow: 0px 0px 26px -9px rgba(0, 0, 0, 0.6);
       -moz-box-shadow: 0px 0px 26px -9px rgba(0, 0, 0, 0.6);
       box-shadow: 0px 0px 26px -9px rgba(0, 0, 0, 0.6);
-      color: #39375b;
+      color: #404488d7;
       padding: 1rem;
       margin: 2rem 2rem;
       display: flex;
@@ -59,16 +56,24 @@
         font-size: 2rem;
         font-weight: 500;
         margin: 1rem 0;
-        color: #39375b;
+        color: #4842a8;
       }
       .categoryInputContainer {
         margin: 2rem 0;
+        .addCategory {
+          background-color: #bbcfff;
+          color: #39375b;
+        }
+        .resetAll {
+          background-color: #c9485b;
+        }
       }
       .categoryList {
         display: flex;
         flex-direction: column;
         border-radius: 1rem;
-        background-color: #d291bc;
+        background-color: #f898b748;
+        color: rgb(31, 27, 27);
         -webkit-box-shadow: 0px 0px 26px -9px rgba(0, 0, 0, 0.6);
         -moz-box-shadow: 0px 0px 26px -9px rgba(0, 0, 0, 0.6);
         box-shadow: 0px 0px 26px -9px rgba(0, 0, 0, 0.6);
@@ -83,6 +88,9 @@
           }
           .category {
             font-size: 18px;
+            font-weight: 500;
+            color: #40426e;
+            text-transform: capitalize;
           }
         }
       }
@@ -98,7 +106,8 @@
       justify-content: center;
     }
     .card {
-      background-color: #d291bc;
+      background-color: #cdcff5;
+      backdrop-filter: blur(2px);
       display: flex;
       flex-direction: column;
       position: relative;
@@ -109,7 +118,11 @@
       -webkit-box-shadow: 0px 0px 26px -9px rgba(0, 0, 0, 0.6);
       -moz-box-shadow: 0px 0px 26px -9px rgba(0, 0, 0, 0.6);
       box-shadow: 0px 0px 26px -9px rgba(0, 0, 0, 0.6);
-
+      //todoaddd btn
+      .todoAdd {
+        background-color: #bbcfff;
+        color: #39375b;
+      }
       .overlay {
         position: absolute;
         height: 100%;
@@ -117,7 +130,7 @@
         opacity: 0;
         transition: 0.5s;
         justify-content: space-around;
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: rgba(0, 0, 0, 0.4);
         border-radius: 1rem;
         &:hover {
           opacity: 1;
@@ -125,8 +138,8 @@
         .editBtn {
           align-self: center;
           cursor: pointer;
-          background-color: #bbcfff;
-          color: #39375b;
+          background-color: #2f3275;
+          color: #ffffff;
         }
         .deleteBtn {
           align-self: center;
@@ -140,8 +153,12 @@
           justify-content: space-between;
           margin: 5px 10px 20px;
           border-bottom: #484c7f 1px solid;
-          padding-bottom: 10px;
+          padding: 10px;
+          font-style: italic;
+          font-weight: 500;
+          text-transform: capitalize;
           .closeBtn {
+            font-style: normal;
             cursor: pointer;
             width: max-content;
           }
@@ -150,13 +167,15 @@
         }
         .todoOverflow {
           overflow-y: auto;
-          height: 170px;
+          height: 150px;
           .todoContainer {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0.2rem 1rem;
             .todoItem {
+              font-weight: 500;
+              text-transform: capitalize;
             }
           }
         }
@@ -164,9 +183,16 @@
       .saveBtn {
         margin: auto;
         cursor: pointer;
+        background-color: #9294df;
+        color: #ffffff;
       }
     }
     .createCard {
+      color: #40426e;
+      .createBtn {
+        background-color: #cb99cf;
+        color: #ffffff;
+      }
     }
   }
 }

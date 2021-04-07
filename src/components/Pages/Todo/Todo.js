@@ -200,6 +200,7 @@ const Todo = (props) => {
           <div id="categoryTitle">Categories</div>
           <div className="categoryInputContainer">
             <TextField
+              error={category === " "}
               onChange={categoryOnChangeHandler}
               onKeyDown={categoryEnterHandler}
               value={category}
@@ -215,6 +216,7 @@ const Todo = (props) => {
             />
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Button
+                className="addCategory"
                 style={{ marginTop: "1rem" }}
                 variant="contained"
                 color="primary"
@@ -223,6 +225,7 @@ const Todo = (props) => {
                 Add
               </Button>
               <Button
+                className="resetAll"
                 style={{ marginTop: "1rem" }}
                 variant="contained"
                 color="secondary"
@@ -323,9 +326,18 @@ const Todo = (props) => {
                   </div>
                   <div className="cardTitle">
                     <TextField
+                      error={todoCard.title === " "}
                       value={todoCard.title}
                       onChange={(e) => titleOnChangeHandler(e, todoCard.id)}
-                      inputProps={{ min: 0, style: { textAlign: "center" } }}
+                      inputProps={{
+                        min: 0,
+                        style: {
+                          textAlign: "center",
+                          fontWeight: "600",
+                          fontSize: "24px",
+                          textTransform: "uppercase",
+                        },
+                      }}
                       label="Title"
                       id="todo-title"
                       variant="filled"
@@ -339,6 +351,7 @@ const Todo = (props) => {
                     }}
                   >
                     <TextField
+                      error={todoItem[todoCard.id] === " "}
                       value={todoItem[todoCard.id]}
                       onChange={(e) => onChangeHandler(e, todoCard.id)}
                       onKeyDown={(e) => todoEnterHandler(e, todoCard.id)}
@@ -348,6 +361,7 @@ const Todo = (props) => {
                       size="small"
                     />
                     <Button
+                      className="todoAdd"
                       style={{ marginTop: "1rem" }}
                       variant="contained"
                       color="primary"
@@ -415,6 +429,7 @@ const Todo = (props) => {
         <div className="createCard card">
           <h1>NEW PROJECT</h1>
           <Button
+            className="createBtn"
             style={{ margin: "auto" }}
             variant="contained"
             color="primary"
