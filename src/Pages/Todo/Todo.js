@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { Button, TextField, Checkbox } from "@material-ui/core";
@@ -13,10 +13,6 @@ const Todo = () => {
   const [category, setCategory] = useState("");
   const [categories, setCategories] = useState([]);
   const [categoryId, setCategoryId] = useState(0);
-  useEffect(() => {
-    console.log(todoCards, "cards");
-    console.log(categories, "categories");
-  }, [todoItem, todoCards, cardId, categories]);
 
   const createHandler = () => {
     let selectedCategoryList = categories
@@ -166,9 +162,11 @@ const Todo = () => {
   const categoryEnterHandler = (e) => {
     e.keyCode === 13 && addCategory();
   };
+
   const todoEnterHandler = (e, id) => {
     e.keyCode === 13 && addTodo(id);
   };
+
   const resetAll = () => {
     setTodoCards([]);
     setCardId(0);
@@ -177,6 +175,7 @@ const Todo = () => {
     setCategories([]);
     setCategoryId(0);
   };
+
   return (
     <div className="todoPageContainer">
       <div className="column">
