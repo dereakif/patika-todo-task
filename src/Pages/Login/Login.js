@@ -4,19 +4,9 @@ import Button from "@material-ui/core/Button";
 import LoginImg from "../../assets/pixel.png";
 import "./Login.scss";
 import { TextField } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
 import { useEffect, useState } from "react";
 
-const styles = {
-  root: {
-    borderColor: "white",
-  },
-  input: {
-    color: "#310c40",
-  },
-};
-const Login = (props) => {
-  const { classes } = props;
+const Login = () => {
   let history = useHistory();
 
   const [firstName, setfirstName] = useState(undefined);
@@ -122,4 +112,4 @@ const Login = (props) => {
     </div>
   );
 };
-export default withStyles(styles)(Login);
+export default Login;
