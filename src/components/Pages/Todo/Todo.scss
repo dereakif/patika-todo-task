@@ -118,16 +118,20 @@
         transition: 0.5s;
         justify-content: space-around;
         background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 1rem;
         &:hover {
           opacity: 1;
         }
         .editBtn {
           align-self: center;
           cursor: pointer;
+          background-color: #bbcfff;
+          color: #39375b;
         }
         .deleteBtn {
           align-self: center;
           cursor: pointer;
+          background-color: #c9485b;
         }
       }
       .cardContent {
