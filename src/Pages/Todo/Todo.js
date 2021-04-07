@@ -387,6 +387,7 @@ const Todo = () => {
                           <Checkbox
                             style={{
                               display: todoCard.isSaved ? "none" : "unset",
+                              color: "#40426e",
                             }}
                             type="checkbox"
                             onClick={() =>
