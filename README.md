@@ -10,7 +10,7 @@
 
 ## General info
 
-A basic todo app that performs CRUD operations.\
+A basic todo app that performs CRUD operations.
 
 ## Technologies
 
