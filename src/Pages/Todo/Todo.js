@@ -355,7 +355,10 @@ const Todo = (props) => {
                       value={todoItem[todoCard.id]}
                       onChange={(e) => onChangeHandler(e, todoCard.id)}
                       onKeyDown={(e) => todoEnterHandler(e, todoCard.id)}
-                      inputProps={{ min: 0, style: { textAlign: "center" } }}
+                      inputProps={{
+                        min: 0,
+                        style: { textAlign: "center", fontWeight: "500" },
+                      }}
                       label="Todo"
                       id="todo-item"
                       size="small"

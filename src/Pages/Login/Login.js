@@ -98,6 +98,7 @@ const Login = (props) => {
           </div>
 
           <Button
+            className="loginBtn"
             style={{ marginTop: "1rem" }}
             variant="contained"
             color="primary"
