@@ -317,7 +317,7 @@ const Todo = () => {
                   </div>
                   <div className="cardTitle">
                     {todoCard.isSaved ? (
-                      <h2>{todoCard.title}</h2>
+                      todoCard.title
                     ) : (
                       <TextField
                         error={todoCard.title === " "}
