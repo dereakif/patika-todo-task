@@ -1,7 +1,7 @@
 import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 
-import LoginImg from "../../../assets/pixel.png";
+import LoginImg from "../../assets/pixel.png";
 import "./Login.scss";
 import { TextField } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";

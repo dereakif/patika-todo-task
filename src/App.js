@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Login from "./components/Pages/Login/Login";
-import Todo from "./components/Pages/Todo/Todo";
+import Login from "./Pages/Login/Login";
+import Todo from "./Pages/Todo/Todo";
 import "./App.css";
 
 function App() {
